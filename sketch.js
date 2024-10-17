@@ -1,29 +1,53 @@
-// comédia, drama, ação, romance
-
-// 
-// Gente Grande 1 e 2,+12, comédia, aventura
-// Este é meu garoto, +16, comédia, aventura
-// Como se fosse a primeira vez, +12, romance, comédia
-// Projeto X, +16, comédia, aventura
-// Cidade de Deus, +18, ação, drama
-// Breaking Bad, +16, drama, ação
-// Snowfall, +16, drama
+let campoIdade;
+let campoFantasia;
+let campoAventura;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(800, 400);
+  createElement("h2", "Recomendador de filmes");
+  createSpan("Sua idade:");
+  campoIdade = createInput("16");
+  campoFantasia = createCheckbox("Gosta de fantasia?");
+  campoAventura = createCheckbox("Gosta de aventura?");
 }
 
 function draw() {
-  background(220);
-  let recomendacao = geraRecomendacao();
+  background("black");
+  let idade = campoIdade.value();
+  let gostaDeFantasia = campoFantasia.checked();
+  let gostaDeAventura = campoAventura.checked();
+  let recomendacao = geraRecomendacao(idade, gostaDeFantasia, gostaDeAventura);
+
+  fill(color(76, 0, 115));
+  textAlign(CENTER, CENTER);
+  textSize(38);
   text(recomendacao, width / 2, height / 2);
 }
 
-function geraRecomendacao(idade) {
-  if (idade >= 10) {
-    return "Snowfall"
+function geraRecomendacao(idade, gostaDeFantasia, gostaDeAventura) {
+  if (idade >= 18) {
+    if (idade >= 18) {
+      return "Breaking Bad";
+    } else {
+      if (idade >= 16) {
+        if(gostaDeFantasia || gostaDeAventura) {
+          return "Cidade de Deus";          
+        } else{
+         return "Snowfall";
+        }
+      } else {
+        if (gostaDeFantasia) {
+          return "SuperBad";
+        } else {
+          return "Projeto X";
+        }
+      }
+    }
   } else {
-    return "Gente grande";
+    if (gostaDeFantasia) {
+      return "Este é Meu garoto";
+    } else {
+      return "Gente Grande";
     }
   }
-    
+}
